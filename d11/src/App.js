@@ -1,25 +1,38 @@
-import logo from './logo.svg';
-import './App.css';
+// src/App.jsx
 
-function App() {
+import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
+import ShowList from "./components/ShowList";
+import ShowDetail from "./components/ShowDetails";
+import Favorites from "./components/Favorites";
+import Header from "./components/Header";
+import PodcastProvider from "../src/AppDetails/PodacastDetails";
+
+const App = () => {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <PodcastProvider>
+      <Router>
+        <div>
+          <Header />
+          <nav>
+            <ul>
+              <li>
+                <Link to="/">Home</Link>
+              </li>
+              <li>
+                <Link to="/favorites">Favorites</Link>
+              </li>
+            </ul>
+          </nav>
+
+          <Routes>
+            <Route path="/" element={<ShowList />} />
+            <Route path="/shows/:id" element={<ShowDetail />} />
+            <Route path="/favorites" element={<Favorites />} />
+          </Routes>
+        </div>
+      </Router>
+    </PodcastProvider>
   );
-}
+};
 
 export default App;
